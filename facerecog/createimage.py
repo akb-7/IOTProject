@@ -1,20 +1,11 @@
-# -*- coding: utf-8 -*-
-
 """
-Created on Thu Jun  4 13:30:27 2020
-
 @author: Aakash Babu
 """
-from datetime import datetime
 import cv2
 import os
-import warnings
-warnings.simplefilter("ignore")
+
 
 def create_image(name):
-    #BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    if name is None:
-        return
     BASE_DIR = os.getcwd()
 
     image_dir = os.path.join(BASE_DIR, "images")
@@ -28,28 +19,32 @@ def create_image(name):
 
     cam = cv2.VideoCapture(0)
 
-    cv2.namedWindow("DataSet Creator for {}".format(name))
-
+    
     # ---------------------- #
     '''
     for root, dirs, files in os.walk(image_dir):
         img_counter = len(files)
     '''
+    count = 0
 
     while True:
         ret, frame = cam.read()
         if not ret:
             # print("failed to grab frame")
             break
-        cv2.imshow("DataSet Creator for {}".format(name), frame)
+        cv2.imshow("DataSet Creator for {} Press Spacebar to click photo and esc key to stop".format(name),frame)
+
 
         k = cv2.waitKey(1)
         if k%256 == 27:
             break
         elif k%256 == 32:
-            img_name = "{}--{}.png".format(name,str(datetime.now()))
+            img_name = "{}--{}.png".format(name,count)
             img_dir = os.path.join(image_dir,img_name)
             cv2.imwrite(img_dir, frame)
+            count = count+1
             print(15*"#"+img_dir+15*"#")
     cam.release()
     cv2.destroyAllWindows()
+if __name__=="__main__":
+	print("Import Only File")

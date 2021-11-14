@@ -1,9 +1,20 @@
+"""
+@author: Aakash Babu
+"""
 import cv2
 import os
 import numpy as np
 from PIL import Image
 import pickle
-
+import shutil
+def del_folder():
+	BASE_DIR = os.getcwd()
+	image_dir = os.path.join(BASE_DIR, "images")
+	try:
+		shutil.rmtree(image_dir)
+	except OSError as e:
+		print("Error: %s - %s." % (e.filename, e.strerror))
+		
 def train_image():
 	'''This method trains the classifier on the collected images and save it as pickle file'''
 
@@ -48,3 +59,6 @@ def train_image():
 
 	recognizer.train(x_train, np.array(y_labels))
 	recognizer.save("./recognizer/face-trainner.yml")
+
+if __name__=="__main__":
+	print("Import Only File")
