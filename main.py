@@ -1,4 +1,3 @@
-import sys
 import warnings
 warnings.simplefilter("ignore")
 from facerecog.createimage import create_image
@@ -13,7 +12,7 @@ def instruct():
 	print("\nWelcome to Open CV based face recognition system.\n")
 	print(20*"-")
 
-def main():
+def main():		
 	choice = int(input("Enter the choice \n 1.Train the model \t 2. Run the model\n"))
 	if choice==1:
 		name = input("Enter the name of the human\t")
